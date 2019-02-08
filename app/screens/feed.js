@@ -67,7 +67,7 @@ loadFeed = () => {
 
             for(var photo in data) {
                 var photoObj = data[photo];
-                database.ref('users').child(photoObj.author).child('username').once('value').then(function(snapshot) {
+                database.ref('users').child(photoObj.author).once('value').then(function(snapshot) {
                     const exists = (snapshot.val() !== null);
                     if(exists) data = snapshot.val();
                         photo_feed.push({
@@ -75,7 +75,7 @@ loadFeed = () => {
                             url: photoObj.url,
                             caption: photoObj.caption,
                             posted: that.timeConverter(photoObj.posted),
-                            author: data
+                            author: data.username
                         });
 
                         that.setState({
