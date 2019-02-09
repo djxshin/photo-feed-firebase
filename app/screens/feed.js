@@ -1,5 +1,5 @@
 import React from 'react'
-import {FlatList, StyleSheet, Text, View, Image} from 'react-native';
+import {TouchableOpacity, FlatList, StyleSheet, Text, View, Image} from 'react-native';
 import  {f, auth, database, storage} from '../../config/config';
 
 class feed extends React.Component {
@@ -83,7 +83,7 @@ loadFeed = () => {
                             loading: false
                         });
 
-                }).catch(error => console.log(error));
+                }).catch(error => console.log(error)); 
             }
         }).catch(error => console.log(error)); 
 }
@@ -119,7 +119,10 @@ render(){
             <View key={index} style={{width:'100%', overflow: 'hidden', marginBottom: 5, justifyContent:'space-between', borderBottomWidth: 1, borderColor: 'grey'}}>
             <View style={{padding:5, width:'100%', flexDirection: 'row', justifyContent: 'space-between'}}>
                 <Text>{item.posted}</Text>
+                <TouchableOpacity 
+                onPress={()=> this.props.navigation.navigate('User')}>
                 <Text>{item.author}</Text>
+                </TouchableOpacity>
             </View>
             <View>
                 <Image source={{uri: item.url }} 
