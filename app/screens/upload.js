@@ -54,6 +54,25 @@ findNewImage = async () => {
 
 uploadImage = async () => {
     
+//     var that = this;
+//     var userid = f.auth().currentUser.uid;
+//     var imageId = this.state.imageId;
+
+//     var re = /(?:\.([^.]+))?$/;
+//     var ext = re.exec(uri)[1];
+//     this.setState({
+//       currentFileType: ext});
+
+//     const response = await fetch(uri);
+//     const blob = await response.blob();
+
+//     var FilePath = imageId + "." + that.state.currentFileType;
+
+//    const ref = storage.ref('user/'+userid+'/img').child(FilePath);
+
+//    var snapshot = ref.put(blob).on('state_changed', snapshot =>{
+//        console.log('Progress', snapshot.bytesTransferred, snapshot.totalBytes);
+//    });
 }
 
 componentDidMount = () => {

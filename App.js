@@ -1,6 +1,7 @@
 import React, {Components} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator} from 'react-navigation';
+import  {f, auth, database, storage} from './config/config';
 
 import feed from './app/screens/feed';
 import upload from './app/screens/upload';
@@ -31,6 +32,19 @@ const MainStack = createStackNavigator(
 )
 
 export default class App extends React.Component {
+
+login = async()=>{
+  try{
+    let user = await auth.signInWithEmailAndPassword('test@user.com', 'password');
+  }catch(error){
+    console.log(error);
+  }
+}  
+
+constructor(props){
+  super(props);
+  this.login();
+}
   render() {
     return (
       <MainStack/>

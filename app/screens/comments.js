@@ -32,13 +32,13 @@ render(){
         <View style={{flex:1, justifyContent:'center', alignItems: 'center'}}>
              {this.state.loggedin == true ? (
             // logged in
-            <Text>upload!!</Text>
+            <Text>Comments</Text>
         ): (
             //  not logged in
             <View>
             <Text>you're not logged in</Text>
 
-            <Text>please log in to upload a photo</Text>
+            <Text>POST Comment</Text>
             </View>
         )}
         </View>
