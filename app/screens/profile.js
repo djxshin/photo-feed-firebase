@@ -2,6 +2,8 @@ import React from 'react'
 import { TouchableOpacity, FlatList, StyleSheet, Text, View, Image} from 'react-native';
 import  {f, auth, database, storage} from '../../config/config';
 
+import PhotoList from '../components/photoList';
+
 class profile extends React.Component {
 constructor(props){
     super(props);
@@ -16,7 +18,8 @@ componentDidMount = () => {
         if(user){
             // logged in
             that.setState({
-                loggedin: true
+                loggedin: true,
+                userId: user.uid
             });
         }else{
             // not logged in
@@ -58,11 +61,8 @@ render(){
                         <Text style={{textAlign: 'center', color:'white'}}>Upload New +</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={{flex:1, justifyContent:'center', alignItems: 'center', backgroundColor: 'green'}}>
-                    <Text>
-                        Loading Photos...
-                    </Text>
-                </View>
+
+            <PhotoList isUser={true} navigation={this.props.navigation}></PhotoList>
             </View>
         ): (
             //  not logged in

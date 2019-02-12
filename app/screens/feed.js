@@ -53,6 +53,29 @@ timeConverter = (timestamp) => {
     return Math.floor(seconds ) + ' seconds' + this.pluralCheck(seconds); 
 }
 
+addToFlatList = (photo_feed, data, photo) => {
+    var that = this;
+    var photoObj = data[photo];
+    database.ref('users').child(photoObj.author).once('value').then(function(snapshot) {
+        const exists = (snapshot.val() !== null);
+        if(exists) data = snapshot.val();
+            photo_feed.push({
+                id: photo,
+                url: photoObj.url,
+                caption: photoObj.caption,
+                posted: that.timeConverter(photoObj.posted),
+                author: data.username,
+                authorId: photoObj.author
+            });
+
+            that.setState({
+                refresh: false,
+                loading: false
+            });
+
+    }).catch(error => console.log(error)); 
+}
+
 loadFeed = () => {
     this.setState ({
         refresh:true,
@@ -66,27 +89,10 @@ loadFeed = () => {
             var photo_feed = that.state.photo_feed; 
 
             for(var photo in data) {
-                var photoObj = data[photo];
-                database.ref('users').child(photoObj.author).once('value').then(function(snapshot) {
-                    const exists = (snapshot.val() !== null);
-                    if(exists) data = snapshot.val();
-                        photo_feed.push({
-                            id: photo,
-                            url: photoObj.url,
-                            caption: photoObj.caption,
-                            posted: that.timeConverter(photoObj.posted),
-                            author: data.username,
-                            authorId: photoObj.author
-                        });
-
-                        that.setState({
-                            refresh: false,
-                            loading: false
-                        });
-
-                }).catch(error => console.log(error)); 
+              
+               that.addToFlatList(photo_feed, data, photo);
             }
-        }).catch(error => console.log(error)); 
+        }).catch(error => console.log(error));  
 }
 
 
@@ -96,9 +102,10 @@ loadNew = () => {
 render(){
     return(
         <View style={{flex: 1}}>
-        <View style={{height: 70, paddingTop: 30, backgroundColor: 'white', borderColor: 'lightgrey', borderBottomWidth: 0.5, justifyContent: 'center', alignItems: 'center',}}>
-        <Text>FEED!!!!!!!</Text>
-        </View>
+
+        <View style={{height:70, paddingTop: 30, backgroundColor: 'white',  borderColor: 'lightgrey', borderBottomWidth: 0.5, justifyContent: 'center', alignItems: 'center'}}>
+            <Text>Feed</Text>
+        </View>        
 
         { this.state.loading == true ? (
             <View style={{flex:1, justifyContent: 'center', alignItems: 'center', }}>
