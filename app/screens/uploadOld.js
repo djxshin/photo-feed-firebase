@@ -3,7 +3,7 @@ import { TextInput, ActivityIndicator, TouchableOpacity, FlatList, StyleSheet, T
 import  {f, auth, database, storage} from '../../config/config';
 import {Permissions, ImagePicker} from 'expo';
 
-class upload extends React.Component {
+class uploadOld extends React.Component {
 constructor(props){
     super(props);
     this.state = {
@@ -88,76 +88,79 @@ uploadImage = async (uri) => {
       uploading: true
     });
  
-    /*const response = await fetch(uri);
-    const blob = await response.blob();*/
+    const response = await fetch(uri);
+    const blob = await response.blob();
     var FilePath = imageId + "." + that.state.currentFileType;
+
+    var uploadTask = storage.ref('user/'+userid+'/img').child(FilePath).put(blob);
  
-    const oReq = new XMLHttpRequest();
-    oReq.open("GET", uri, true);
-    oReq.responseType = "blob";
-    oReq.onload = () => {
-      const blob = oReq.response;
-      //Call function to complete upload with the new blob to handle the uploadTask.
-      this.completeUploadBlob(blob, FilePath);
-    };
-    oReq.send();
- 
-    /*var uploadTask = storage.ref('user/'+userid+'/img').child(FilePath).put(blob);
+    // const oReq = new XMLHttpRequest();
+    // oReq.open("GET", uri, true);
+    // oReq.responseType = "blob";
+    // oReq.onload = () => {
+    //   const blob = oReq.response;
+    //   //Call function to complete upload with the new blob to handle the uploadTask.
+    //   this.completeUploadBlob(blob, FilePath);
+    // };
+    // oReq.send();
  
     uploadTask.on('state_changed', function(snapshot){
       var progress = ((snapshot.bytesTransferred / snapshot.totalBytes) * 100).toFixed(0);
       console.log('Upload is '+progress+'% complete');
       that.setState({
         progress:progress,
-      });
+      })
     }, function(error) {
-      console.log('error with upload - '+error);
+      console.log('error with upload - ' + error);
     }, function(){
       //complete
       that.setState({progress:100});
       uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL){
         console.log(downloadURL);
         that.processUpload(downloadURL);
+        
       });
  
-    });*/
+    });
   };
 
-  completeUploadBlob = (blob, FilePath) => {
-    var that = this;
-    var userid = f.auth().currentUser.uid;
-    var imageId = this.state.imageId;
+
+
+  // completeUploadBlob = (blob, FilePath) => {
+  //   var that = this;
+  //   var userid = f.auth().currentUser.uid;
+  //   var imageId = this.state.imageId;
  
-    var uploadTask = storage
-      .ref("user/" + userid + "/img")
-      .child(FilePath)
-      .put(blob);
+  //   var uploadTask = storage
+  //     .ref("user/" + userid + "/img")
+  //     .child(FilePath)
+  //     .put(blob);
  
-    uploadTask.on(
-      "state_changed",
-      function(snapshot) {
-        var progress = (
-          (snapshot.bytesTransferred / snapshot.totalBytes) *
-          100
-        ).toFixed(0);
-        console.log("Upload is " + progress + "% complete");
-        that.setState({
-          progress: progress
-        });
-      },
-      function(error) {
-        console.log("error with upload - " + error);
-      },
-      function() {
-        //complete
-        that.setState({ progress: 100 });
-        uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-          console.log(downloadURL);
-          that.processUpload(downloadURL);
-        });
-      }
-    );
-  };
+  //   uploadTask.on(
+  //     "state_changed",
+  //     function(snapshot) {
+  //       var progress = (
+  //         (snapshot.bytesTransferred / snapshot.totalBytes) *
+  //         100
+  //       ).toFixed(0);
+  //       console.log("Upload is " + progress + "% complete");
+  //       that.setState({
+  //         progress: progress
+  //       });
+  //     },
+  //     function(error) {
+  //       console.log("error with upload - " + error);
+  //     },
+  //     function() {
+  //       //complete
+  //       that.setState({ progress: 100 });
+  //       uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+  //         console.log(downloadURL);
+  //         that.processUpload(downloadURL);
+  //       });
+  //     }
+  //   );
+  // };
  
   processUpload = imageUrl => {
     //Process here...
@@ -304,4 +307,4 @@ render(){
 }
 }
 
-export default upload;
+export default uploadOld;

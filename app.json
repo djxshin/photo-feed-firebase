@@ -24,6 +24,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "my 1st practice at react native tutorial ",
+    "githubUrl": "https://github.com/djxshin/photo-feed-firebase"
   }
 }

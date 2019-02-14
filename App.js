@@ -6,8 +6,9 @@ import  {f, auth, database, storage} from './config/config';
 import feed from './app/screens/feed';
 import upload from './app/screens/upload';
 import profile from './app/screens/profile';
-import userProfile from './app/screens/userProfile'
+import userProfile from './app/screens/userProfile';
 import comments from './app/screens/comments';
+import uploadOld from './app/screens/uploadOld';
 
 const TabStack = createBottomTabNavigator(
   {
