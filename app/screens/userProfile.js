@@ -2,6 +2,8 @@ import React from 'react'
 import { TouchableOpacity, FlatList, StyleSheet, Text, View, Image} from 'react-native';
 import  {f, auth, database, storage} from '../../config/config';
 
+import PhotoList from '../components/photoList';
+
 class profile extends React.Component {
 constructor(props){
     super(props);
@@ -9,14 +11,20 @@ constructor(props){
         loaded: false
     }
 }
+componentDidMount = () => {
+    this.checkParams();  
+
+  }
 
 checkParams = () => {
  var params = this.props.navigation.state.params;
  if(params){
      if(params.userId){
+        // console.log(userId, "is this showing up??")
       this.setState({
           userId: params.userId
-      });
+          
+      })
       this.fetchUserInfo(params.userId);
      }
  }
@@ -41,13 +49,10 @@ fetchUserInfo = (userId) => {
             if(exists) data = snapshot.val();
                 that.setState({avatar:data,
              loaded:true});
-            }).catch(error => console.log(error));
+    }).catch(error => console.log(error));
 }
 
-componentDidMount = () => {
-  this.checkParams();  
- 
-}
+
 
 
 render(){
@@ -75,11 +80,7 @@ render(){
                     </View>
                 </View>
                
-                <View style={{flex:1, justifyContent:'center', alignItems: 'center', backgroundColor: 'green'}}>
-                    <Text>
-                        Loading Photos...
-                    </Text>
-                </View>
+               {/* <PhotoList isUser={true} userId ={this.state.userId} navigation={this.props.navigation}/> */}
                 
             </View>
        
@@ -89,4 +90,4 @@ render(){
 }
 }
 
-export default profile; 
+export default profile;  

@@ -62,7 +62,7 @@ render(){
                     </TouchableOpacity>
                 </View>
 
-           
+            {/* <PhotoList isUser={true} userId ={this.state.userId} navigation={this.props.navigation}/> */}
             </View>
         ): (
             //  not logged in
