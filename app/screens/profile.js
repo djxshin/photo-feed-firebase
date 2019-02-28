@@ -1,8 +1,7 @@
 import React from 'react'
 import { TouchableOpacity, FlatList, StyleSheet, Text, View, Image} from 'react-native';
 import  {f, auth, database, storage} from '../../config/config';
-
-import PhotoList from '../components/photoList';
+import PhotoList from '../components/PhotoList'
 
 class profile extends React.Component {
 constructor(props){
@@ -29,8 +28,6 @@ componentDidMount = () => {
         }
     });
 }
-
-
 
 render(){
     return(
@@ -61,8 +58,7 @@ render(){
                         <Text style={{textAlign: 'center', color:'white'}}>Upload New +</Text>
                     </TouchableOpacity>
                 </View>
-
-            {/* <PhotoList isUser={true} userId ={this.state.userId} navigation={this.props.navigation}/> */}
+                    <PhotoList isUser={true} userId={this.state.userId} navigation={this.props.navigation}/>
             </View>
         ): (
             //  not logged in

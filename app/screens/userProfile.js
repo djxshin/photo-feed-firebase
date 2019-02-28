@@ -2,7 +2,6 @@ import React from 'react'
 import { TouchableOpacity, FlatList, StyleSheet, Text, View, Image} from 'react-native';
 import  {f, auth, database, storage} from '../../config/config';
 
-import PhotoList from '../components/photoList';
 
 class profile extends React.Component {
 constructor(props){
@@ -20,10 +19,9 @@ checkParams = () => {
  var params = this.props.navigation.state.params;
  if(params){
      if(params.userId){
-        // console.log(userId, "is this showing up??")
+       
       this.setState({
           userId: params.userId
-          
       })
       this.fetchUserInfo(params.userId);
      }
