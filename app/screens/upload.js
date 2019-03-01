@@ -218,7 +218,7 @@ componentDidMount = () => {
 render(){
     return(
         <View style={{flex:1}}>
-             {this.state.loggedin == true ? (
+             {/* {this.state.loggedin == true ? ( */}
             // logged in
             <View style={{flex:1}}>
             {/* check if the image is selected */}
@@ -294,12 +294,11 @@ render(){
             </View>
             )}
             </View>
-        ): (
+        {/* ): (
             //  not logged in
             <UserAuth message={'please log in to upload a photo'}
-            />
+            /> */}
         
-        )}
         </View>
     )
 }

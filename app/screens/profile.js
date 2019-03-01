@@ -134,8 +134,7 @@ render(){
             </View>
         ): (
             //  not logged in
-       <UserAuth message={'Plase login to view your profile'}
-       />
+       <UserAuth message={'Plase login to view your profile'}/>
         )}
             
         </View>

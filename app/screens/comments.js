@@ -1,7 +1,7 @@
 import React from 'react'
 import { TouchableOpacity, TextInput, KeyboardAvoidingView, FlatList, StyleSheet, Text, View, Image} from 'react-native';
 import  {f, auth, database, storage} from '../../config/config';
-import PhotoList from '../components/PhotoList'
+
 import UserAuth from '../components/Auth'
 
 class comments extends React.Component {

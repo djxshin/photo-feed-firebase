@@ -22,7 +22,7 @@ render(){
     return(
         <View style={{flex:1}}>
           <Text>you're not logged in</Text>
-          <Text>{this.props.message}</Text>   
+          <Text>no loading</Text>   
         )}
         </View>
     )
