@@ -1,6 +1,8 @@
 import React from 'react'
 import { TouchableOpacity, TextInput, KeyboardAvoidingView, FlatList, StyleSheet, Text, View, Image} from 'react-native';
 import  {f, auth, database, storage} from '../../config/config';
+import PhotoList from '../components/PhotoList'
+import UserAuth from '../components/Auth'
 
 class comments extends React.Component {
 constructor(props){
@@ -163,7 +165,7 @@ postComment = () => {
 
 reloadCommentList = () =>{
     this.setState({
-        comment_list:[]
+        comments_list:[]
     });
     this.fetchComments(this.state.photoId);
 }
@@ -219,6 +221,7 @@ render(){
                 editable={true} 
                 placeholder={'enter your comment here'}
                 onChangeText={(text)=> this.setState({comment:text})}
+                value={this.state.comment}
                 style={{marginVertical: 10, height:50, padding:5, borderColor: 'grey', borderRadius:3, backgroundColor:'white', color:'black'}}
                 />
 
@@ -233,11 +236,7 @@ render(){
            
         ): (
             //  not logged in
-            <View>
-            <Text>you're not logged in</Text>
-
-            <Text>POST Comment</Text>
-            </View>
+            <UserAuth message={'please log in to post a comment'}/>
         )}
         </View>
     )
