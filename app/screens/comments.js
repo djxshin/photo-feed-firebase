@@ -136,6 +136,38 @@ timeConverter = (timestamp) => {
     return Math.floor(seconds ) + ' seconds' + this.pluralCheck(seconds); 
 }
 
+postComment = () => {
+    var comment = this.state.comment;
+    if(comment != ''){
+        var imageId = this.state.photoId;
+        var userId = f.auth().currentUser.uid;
+        var commentId = this.uniqueId(); 
+        var dateTime = Date.now();
+        var timeStamp = Math.floor(dateTime/1000);
+
+        this.setState({
+            comment:''
+        });
+        var commentObj = {
+            posted: timeStamp,
+            author: userId,
+            comment: comment
+        };
+        database.ref('/comments/'+imageId+'/'+commentId).set(commentObj);
+
+        this.reloadCommentList();
+    }else{
+        alert('Plase enter a comment before posting.');
+    }
+}
+
+reloadCommentList = () =>{
+    this.setState({
+        comment_list:[]
+    });
+    this.fetchComments(this.state.photoId);
+}
+
 render(){
     return(
         <View style={{flex:1}}>
@@ -158,12 +190,17 @@ render(){
                 keyExtractor={(item, index) => index.toString()}
                 style={{flex:1, backgroundColor: '#eee'}}
                 renderItem={({item, index}) => (
-                <View key={index} style={{width: '100%', overflow:'hidden', marginBottom:5, justifyCotent: 'space-between', borderColor: 'grey'}}>
-                <View>
+                <View key={index} style={{width: '100%', overflow:'hidden', marginBottom:5, justifyCotent: 'space-between', borderBottomWidth: 1, borderColor: 'grey'}}>
+                <View style={{padding:5, width:'100%', flexDirection: 'row', justifyContent:'space-between'}}>
                     <Text>{item.posted}</Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('User', {userId: item.authorId})}>
                         <Text>{item.author}</Text>
                     </TouchableOpacity>
+                </View>
+                <View style={{padding:5}}>
+                    <Text>
+                        {item.comment}
+                    </Text>
                 </View>
                 </View>
                 
@@ -173,7 +210,27 @@ render(){
 
              {this.state.loggedin == true ? (
             // logged in
-            <Text>Comments</Text>
+            <KeyboardAvoidingView behavior='padding' enabled style={{borderTopWidth:1, borderTopColor:'grey', padding:10, marginBottom:15}}>
+                <Text style={{fontWeight:'bold'}}>
+                Post Comment
+                </Text>
+            <View>
+                <TextInput 
+                editable={true} 
+                placeholder={'enter your comment here'}
+                onChangeText={(text)=> this.setState({comment:text})}
+                style={{marginVertical: 10, height:50, padding:5, borderColor: 'grey', borderRadius:3, backgroundColor:'white', color:'black'}}
+                />
+
+            <TouchableOpacity
+                onPress={()=>this.postComment()}
+                style={{paddingVertical:10, paddingHorizontal: 20, backgroundColor:'blue', borderRadius:5}}
+                >
+            <Text style={{color:'white'}}>Post</Text>
+            </TouchableOpacity>
+            </View>
+            </KeyboardAvoidingView>
+           
         ): (
             //  not logged in
             <View>
