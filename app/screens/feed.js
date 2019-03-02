@@ -18,10 +18,6 @@ componentDidMount = () => {
    
 }
 
-
-
-
-
 render(){
     return(
         <View style={{flex: 1}}>
@@ -36,6 +32,5 @@ render(){
     )
 }
 }
-
 
 export default feed;

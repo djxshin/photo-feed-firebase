@@ -2,7 +2,7 @@ import React from 'react'
 import { TouchableOpacity, TextInput, KeyboardAvoidingView, FlatList, StyleSheet, Text, View, Image} from 'react-native';
 import  {f, auth, database, storage} from '../../config/config';
 
-import UserAuth from '../components/Auth'
+
 
 class comments extends React.Component {
 constructor(props){
@@ -236,7 +236,10 @@ render(){
            
         ): (
             //  not logged in
-            <UserAuth message={'please log in to post a comment'}/>
+            <View>
+            <Text>you're not logged in</Text>
+            <Text>POST Comment</Text>
+            </View>
         )}
         </View>
     )
