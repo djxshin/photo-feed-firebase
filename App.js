@@ -34,17 +34,9 @@ const MainStack = createStackNavigator(
 
 export default class App extends React.Component {
 
-login = async()=>{
-  try{
-    let user = await auth.signInWithEmailAndPassword('test@user.com', 'password');
-  }catch(error){
-    console.log(error);
-  }
-}  
-
 constructor(props){
   super(props);
-  this.login();
+  
 }
   render() {
     return (
