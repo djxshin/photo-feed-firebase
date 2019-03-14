@@ -14,7 +14,6 @@ constructor(props){
 }
 
 componentDidMount = () => {
-
    
 }
 

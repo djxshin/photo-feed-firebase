@@ -236,7 +236,10 @@ render(){
            
         ): (
             //  not logged in
-           <UserAuth message={'Pldase log in to post a comment'}/>
+           <UserAuth message={'Pldase log in to post a comment'}
+           moveScreen={true}
+           navigation={this.props.navigation}
+           />
         )}
         </View>
     )

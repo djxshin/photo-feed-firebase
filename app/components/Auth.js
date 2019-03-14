@@ -63,7 +63,25 @@ login = async()=>{
   } 
 
 componentDidMount = () => {
+    if(this.props.moveScreen == true){
+        this.setState({moveScreen: true})
+    }
+}
 
+showLogin = () => {
+    if(this.state.moveScreen == true){
+        this.props.navigation.navigate('Upload')
+        return false;
+    }
+    this.setState({authStep:1});
+}
+
+showSignup = () => {
+    if(this.state.moveScreen == true){
+        this.props.navigation.navigate('Upload')
+        return false;
+    }
+    this.setState({authStep:2});
 }
 
 render(){
@@ -74,11 +92,11 @@ render(){
             {this.state.authStep == 0 ?(
                 <View style={{marginVertical: 20, flexDirection: 'row'}}>
 
-                    <TouchableOpacity onPress={()=> this.setState({authStep:1})}>
+                    <TouchableOpacity onPress={()=> this.showLogin()}>
                         <Text style={{fontWeight:'bold', color:'green'}}>Login</Text>
                     </TouchableOpacity>
                     <Text style={{marginHorizontal:10}}>Or</Text>
-                    <TouchableOpacity onPress={()=> this.setState({authStep:2})}>
+                    <TouchableOpacity onPress={()=> this.showSignup()}>
                         <Text style={{fontWeight:'bold', color:'blue'}}>Sign Up</Text>
                     </TouchableOpacity>
                 </View>
